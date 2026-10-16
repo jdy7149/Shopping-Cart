@@ -98,4 +98,11 @@ describe('Product Card', () => {
 
     expect(input).toHaveValue(2);
   });
+
+  it('renders add to cart button', () => {
+    render(<ProductCard />);
+    const addButton = screen.getByRole('button', { name: /add to cart/i });
+
+    expect(addButton).toBeInTheDocument();
+  })
 });
