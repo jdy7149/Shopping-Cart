@@ -1,24 +1,24 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import ProductCard from './ProductCard';
 import userEvent from '@testing-library/user-event';
 
 describe('Product Card', () => {
-  it('renders product data', () => {
-    const product = {
-      id: 1,
-      title: 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops',
-      price: 109.95,
-      description:
-        'Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday',
-      category: "men's clothing",
-      image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png',
-      rating: {
-        rate: 3.9,
-        count: 120,
-      },
-    };
+  const product = {
+    id: 1,
+    title: 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops',
+    price: 109.95,
+    description:
+      'Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday',
+    category: "men's clothing",
+    image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png',
+    rating: {
+      rate: 3.9,
+      count: 120,
+    },
+  };
 
+  it('renders product data', () => {
     render(<ProductCard product={product} />);
 
     expect(screen.getByRole('img')).toBeInTheDocument();
@@ -104,5 +104,21 @@ describe('Product Card', () => {
     const addButton = screen.getByRole('button', { name: /add to cart/i });
 
     expect(addButton).toBeInTheDocument();
-  })
+  });
+
+  it('adds item to cart when clicking add to cart button', async () => {
+    const user = userEvent.setup();
+    const addItem = vi.fn();
+
+    render(<ProductCard product={product} addItem={addItem} />);
+    const input = screen.getByRole('spinbutton');
+    const addButton = screen.getByRole('button', { name: /add to cart/i });
+
+    await user.clear(input);
+    await user.type(input, '3');
+    await user.click(addButton);
+
+    expect(addItem).toHaveBeenCalledOnce();
+    expect(addItem).toHaveBeenCalledWith(product, 3);
+  });
 });
