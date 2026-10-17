@@ -47,7 +47,7 @@ describe('CartItem', () => {
   });
 
   it('renders button to increment value of input', () => {
-    render(<CartItem />);
+    render(<CartItem product={product} />);
     const incrementButton = screen.getByRole('button', { name: '+' });
 
     expect(incrementButton).toBeInTheDocument();
@@ -73,7 +73,7 @@ describe('CartItem', () => {
   });
 
   it('renders button to decrement value of input', () => {
-    render(<CartItem />);
+    render(<CartItem product={product} />);
     const decrementButton = screen.getByRole('button', { name: '-' });
 
     expect(decrementButton).toBeInTheDocument();
@@ -116,26 +116,23 @@ describe('CartItem', () => {
     expect(updateQuantity).toHaveBeenCalledWith(product.id, 2);
   });
 
-  it('renders add to cart button', () => {
-    render(<CartItem />);
-    const addButton = screen.getByRole('button', { name: /add to cart/i });
+  it('renders delete button', () => {
+    render(<CartItem product={product} />);
+    const deleteButton = screen.getByRole('button', { name: /delete/i });
 
-    expect(addButton).toBeInTheDocument();
+    expect(deleteButton).toBeInTheDocument();
   });
 
-  it('adds item to cart when clicking add to cart button', async () => {
+  it('delete item when clicking delete button', async () => {
     const user = userEvent.setup();
-    const addItem = vi.fn();
+    const deleteItem = vi.fn();
 
-    render(<CartItem product={product} addItem={addItem} />);
-    const input = screen.getByRole('spinbutton');
-    const addButton = screen.getByRole('button', { name: /add to cart/i });
+    render(<CartItem product={product} deleteItem={deleteItem} />);
+    const deleteButton = screen.getByRole('button', { name: /delete/i });
 
-    await user.clear(input);
-    await user.type(input, '3');
-    await user.click(addButton);
+    await user.click(deleteButton);
 
-    expect(addItem).toHaveBeenCalledOnce();
-    expect(addItem).toHaveBeenCalledWith(product, 3);
+    expect(deleteItem).toHaveBeenCalledOnce();
+    expect(deleteItem).toHaveBeenCalledWith(product.id);
   });
 });
