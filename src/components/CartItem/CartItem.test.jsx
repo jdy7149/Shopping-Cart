@@ -18,121 +18,127 @@ describe('CartItem', () => {
     },
   };
 
-  it('renders product data', () => {
-    render(<CartItem product={product} />);
+  describe('product information', () => {
+    it('renders product data', () => {
+      render(<CartItem product={product} />);
 
-    expect(screen.getByRole('img')).toBeInTheDocument();
-    expect(screen.getByRole('img')).toHaveAttribute('src', product.image);
+      expect(screen.getByRole('img')).toBeInTheDocument();
+      expect(screen.getByRole('img')).toHaveAttribute('src', product.image);
 
-    expect(
-      screen.getByRole('heading', { name: product.title }),
-    ).toBeInTheDocument();
+      expect(
+        screen.getByRole('heading', { name: product.title }),
+      ).toBeInTheDocument();
 
-    expect(screen.getByText(product.price)).toBeInTheDocument();
+      expect(screen.getByText(product.price)).toBeInTheDocument();
 
-    expect(screen.getByText(product.description)).toBeInTheDocument();
+      expect(screen.getByText(product.description)).toBeInTheDocument();
 
-    expect(screen.getByText(product.rating.rate)).toBeInTheDocument();
+      expect(screen.getByText(product.rating.rate)).toBeInTheDocument();
+    });
   });
 
-  it('renders number input with correct quantity', () => {
-    render(<CartItem product={product} quantity={3} />);
-    const input = screen.getByRole('spinbutton');
+  describe('quantity controls', () => {
+    it('renders the quantity input with the supplied quantity', () => {
+      render(<CartItem product={product} quantity={3} />);
+      const input = screen.getByRole('spinbutton');
 
-    expect(input).toBeInTheDocument();
-    expect(input).toBeEnabled();
-    expect(input).toBeVisible();
-    expect(input).toHaveAttribute('min', '1');
-    expect(input).toHaveValue(3);
+      expect(input).toBeInTheDocument();
+      expect(input).toBeEnabled();
+      expect(input).toBeVisible();
+      expect(input).toHaveAttribute('min', '1');
+      expect(input).toHaveValue(3);
+    });
+
+    it('renders button to increment quantity', () => {
+      render(<CartItem product={product} />);
+      const incrementButton = screen.getByRole('button', { name: '+' });
+
+      expect(incrementButton).toBeInTheDocument();
+    });
+
+    it('requests an incremented quantity when clicking +', async () => {
+      const user = userEvent.setup();
+      const updateQuantity = vi.fn();
+
+      render(
+        <CartItem
+          product={product}
+          quantity={3}
+          updateQuantity={updateQuantity}
+        />,
+      );
+      const incrementButton = screen.getByRole('button', { name: '+' });
+
+      await user.click(incrementButton);
+
+      expect(updateQuantity).toHaveBeenCalledOnce();
+      expect(updateQuantity).toHaveBeenCalledWith(product.id, 4);
+    });
+
+    it('renders button to decrement quantity', () => {
+      render(<CartItem product={product} />);
+      const decrementButton = screen.getByRole('button', { name: '-' });
+
+      expect(decrementButton).toBeInTheDocument();
+    });
+
+    it('requests a decremented quantity when clicking -', async () => {
+      const user = userEvent.setup();
+      const updateQuantity = vi.fn();
+
+      render(
+        <CartItem
+          product={product}
+          quantity={3}
+          updateQuantity={updateQuantity}
+        />,
+      );
+      const decrementButton = screen.getByRole('button', { name: '-' });
+
+      await user.click(decrementButton);
+
+      expect(updateQuantity).toHaveBeenCalledOnce();
+      expect(updateQuantity).toHaveBeenCalledWith(product.id, 2);
+    });
+
+    it('does not request a quantity update when quantity is 1 and - is clicked', async () => {
+      const user = userEvent.setup();
+      const updateQuantity = vi.fn();
+
+      render(
+        <CartItem
+          product={product}
+          quantity={1}
+          updateQuantity={updateQuantity}
+        />,
+      );
+      const decrementButton = screen.getByRole('button', { name: '-' });
+
+      await user.click(decrementButton);
+
+      expect(updateQuantity).not.toHaveBeenCalled();
+    });
   });
 
-  it('renders button to increment value of input', () => {
-    render(<CartItem product={product} />);
-    const incrementButton = screen.getByRole('button', { name: '+' });
+  describe('remove item', () => {
+    it('renders delete button', () => {
+      render(<CartItem product={product} />);
+      const deleteButton = screen.getByRole('button', { name: /delete/i });
 
-    expect(incrementButton).toBeInTheDocument();
-  });
+      expect(deleteButton).toBeInTheDocument();
+    });
 
-  it('updates quantity of product to add 1 when clicking plus button', async () => {
-    const user = userEvent.setup();
-    const updateQuantity = vi.fn();
+    it('calls deleteItem with the product ID when clicking delete button', async () => {
+      const user = userEvent.setup();
+      const deleteItem = vi.fn();
 
-    render(
-      <CartItem
-        product={product}
-        quantity={3}
-        updateQuantity={updateQuantity}
-      />,
-    );
-    const incrementButton = screen.getByRole('button', { name: '+' });
+      render(<CartItem product={product} deleteItem={deleteItem} />);
+      const deleteButton = screen.getByRole('button', { name: /delete/i });
 
-    await user.click(incrementButton);
+      await user.click(deleteButton);
 
-    expect(updateQuantity).toHaveBeenCalledOnce();
-    expect(updateQuantity).toHaveBeenCalledWith(product.id, 4);
-  });
-
-  it('renders button to decrement value of input', () => {
-    render(<CartItem product={product} />);
-    const decrementButton = screen.getByRole('button', { name: '-' });
-
-    expect(decrementButton).toBeInTheDocument();
-  });
-
-  it('does not decrement the input value below 1', async () => {
-    const user = userEvent.setup();
-    const updateQuantity = vi.fn();
-
-    render(
-      <CartItem
-        product={product}
-        quantity={1}
-        updateQuantity={updateQuantity}
-      />,
-    );
-    const decrementButton = screen.getByRole('button', { name: '-' });
-
-    await user.click(decrementButton);
-
-    expect(updateQuantity).not.toHaveBeenCalled();
-  });
-
-  it('updates quantity of product to subtract 1 when clicking minus button', async () => {
-    const user = userEvent.setup();
-    const updateQuantity = vi.fn();
-
-    render(
-      <CartItem
-        product={product}
-        quantity={3}
-        updateQuantity={updateQuantity}
-      />,
-    );
-    const decrementButton = screen.getByRole('button', { name: '-' });
-
-    await user.click(decrementButton);
-
-    expect(updateQuantity).toHaveBeenCalledOnce();
-    expect(updateQuantity).toHaveBeenCalledWith(product.id, 2);
-  });
-
-  it('renders delete button', () => {
-    render(<CartItem product={product} />);
-    const deleteButton = screen.getByRole('button', { name: /delete/i });
-
-    expect(deleteButton).toBeInTheDocument();
-  });
-
-  it('delete item when clicking delete button', async () => {
-    const user = userEvent.setup();
-    const deleteItem = vi.fn();
-
-    render(<CartItem product={product} deleteItem={deleteItem} />);
-    const deleteButton = screen.getByRole('button', { name: /delete/i });
-
-    await user.click(deleteButton);
-
-    expect(deleteItem).toHaveBeenCalledOnce();
-    expect(deleteItem).toHaveBeenCalledWith(product.id);
+      expect(deleteItem).toHaveBeenCalledOnce();
+      expect(deleteItem).toHaveBeenCalledWith(product.id);
+    });
   });
 });
