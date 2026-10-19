@@ -95,4 +95,16 @@ describe('Shop', () => {
       products.map((product) => product.title),
     );
   });
+
+  it('shows error message when fail to fetch', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockRejectedValue(new Error('Cannot fetch API.')),
+    );
+
+    render(<Shop />);
+    const errorMessage = await screen.findByText('Cannot fetch API.');
+
+    expect(errorMessage).toBeInTheDocument();
+  });
 });
