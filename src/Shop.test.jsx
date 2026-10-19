@@ -1,4 +1,10 @@
-import { vi } from 'vitest';
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
+import Shop from './Shop';
 
 window.fetch = vi.fn(() => {
   const products = [
@@ -46,5 +52,16 @@ window.fetch = vi.fn(() => {
 
   return Promise.resolve({
     json: () => Promise.resolve(products),
+  });
+});
+
+describe('Shop', () => {
+  it('shows loading text while api request is in progress', async () => {
+    render(<Shop />);
+    const loading = screen.getByText(/loading/i);
+
+    expect(loading).toBeInTheDocument();
+
+    await waitForElementToBeRemoved(() => screen.getByText(/loading/i));
   });
 });
