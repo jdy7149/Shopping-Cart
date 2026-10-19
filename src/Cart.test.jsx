@@ -80,4 +80,12 @@ describe('Cart', () => {
       cartItems.map((cartItem) => cartItem.quantity),
     );
   });
+
+  it('renders a button to browse shop if cart is empty', () => {
+    render(<Cart cartItems={[]} />);
+    const shopButton = screen.getByRole('button', { name: /shop/i });
+
+    expect(shopButton).toBeInTheDocument();
+    expect(shopButton).toHaveAttribute('href', './shop');
+  });
 });
