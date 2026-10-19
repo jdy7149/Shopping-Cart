@@ -20,20 +20,9 @@ describe('Home component', () => {
         <Home />
       </MemoryRouter>,
     );
+    const shopButton = screen.getByRole('button', { name: /shop/i });
 
-    expect(screen.getByRole('button', { name: /shop/i })).toBeInTheDocument();
-  });
-
-  it('renders button destined to shop', () => {
-    render(
-      <MemoryRouter>
-        <Home />
-      </MemoryRouter>,
-    );
-
-    expect(screen.getByRole('button', { name: /shop/i })).toHaveAttribute(
-      'href',
-      '/shop',
-    );
+    expect(shopButton).toBeInTheDocument();
+    expect(shopButton).toHaveAttribute('href', '/shop');
   });
 });
