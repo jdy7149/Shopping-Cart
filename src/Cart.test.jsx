@@ -1,4 +1,6 @@
-import { vi } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
+import Cart from './Cart';
 
 const cartItems = [
   {
@@ -61,4 +63,21 @@ vi.mock(import('./components/CartItem/CartItem'), () => {
       </>
     ),
   };
+});
+
+describe('Cart', () => {
+  it('renders items in cart if one or more items are in the cart', () => {
+    render(<Cart cartItems={cartItems} />);
+    const headings = screen.getAllByRole('heading');
+    const inputs = screen.getAllByRole('spinbutton');
+
+    expect(headings).toBeInTheDocument();
+    expect(inputs).toBeInTheDocument();
+    expect(headings.map((heading) => heading.textContent)).toEqual(
+      cartItems.map((cartItem) => cartItem.product.title),
+    );
+    expect(inputs.map((input) => Number(input.value))).toEqual(
+      cartItems.map((cartItem) => cartItem.quantity),
+    );
+  });
 });
