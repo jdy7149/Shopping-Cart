@@ -4,7 +4,8 @@ import {
   waitForElementToBeRemoved,
 } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import Shop from './Shop';
+import { createMemoryRouter, RouterProvider } from 'react-router';
+import routes from './routes';
 
 const products = [
   {
@@ -68,6 +69,12 @@ function stubFetch() {
   );
 }
 
+function renderShop() {
+  const router = createMemoryRouter(routes, { initialEntries: ['/shop'] });
+
+  render(<RouterProvider router={router} />);
+}
+
 afterEach(() => {
   vi.unstubAllGlobals();
 });
@@ -76,7 +83,7 @@ describe('Shop', () => {
   it('shows loading text while api request is in progress', async () => {
     stubFetch();
 
-    render(<Shop />);
+    renderShop();
     const loading = screen.getByText(/loading/i);
 
     expect(loading).toBeInTheDocument();
@@ -87,7 +94,7 @@ describe('Shop', () => {
   it('renders a card for each fetched product', async () => {
     stubFetch();
 
-    render(<Shop />);
+    renderShop();
     const heading = await screen.findAllByRole('heading', { level: 2 });
 
     expect(heading).toHaveLength(3);
@@ -102,7 +109,7 @@ describe('Shop', () => {
       vi.fn().mockRejectedValue(new Error('Cannot fetch API.')),
     );
 
-    render(<Shop />);
+    renderShop();
     const errorMessage = await screen.findByText('Cannot fetch API.');
 
     expect(errorMessage).toBeInTheDocument();
