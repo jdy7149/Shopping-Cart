@@ -23,14 +23,14 @@ function Shop({ addItem }) {
   }, []);
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error...</div>;
+  if (error) return <div>{error.message}</div>;
 
   return (
     <>
       <h1>Products</h1>
       <div>
         {products.map((product) => (
-          <ProductCard product={product} addItem={addItem} />
+          <ProductCard key={product.id} product={product} addItem={addItem} />
         ))}
       </div>
     </>
