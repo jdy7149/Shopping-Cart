@@ -1,15 +1,9 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 function ProductCard({ product, addItem }) {
   const [quantity, setQuantity] = useState(1);
 
-  const { id, title, price, description, image, rating } = product;
-
-  function handleAdd() {
-    const quantity = Number(document.querySelector(`#quantity-${id}`).value);
-
-    addItem(product, quantity);
-  }
+  const { title, price, description, image, rating } = product;
 
   return (
     <div>
@@ -19,13 +13,21 @@ function ProductCard({ product, addItem }) {
       <p>{description}</p>
       <div>{price}</div>
       <div>
-        <button type="button">-</button>
-        <input type="number" name="quantity" id={`quantity-${id}`} value={1} min={1} />
-        <button type="button">+</button>
+        <button type="button" onClick={() => setQuantity((prev) => prev > 1 ? prev - 1 : prev)}>-</button>
+        <input
+          type="number"
+          name="quantity"
+          value={quantity}
+          min="1"
+          onChange={(e) => setQuantity(Number(e.target.value))}
+        />
+        <button type="button" onClick={() => setQuantity((prev) => prev + 1)}>+</button>
       </div>
-      <button type="button" onClick={handleAdd}>Add to cart</button>
+      <button type="button" onClick={() => addItem(product, quantity)}>
+        Add to cart
+      </button>
     </div>
-  )
+  );
 }
 
 export default ProductCard;
