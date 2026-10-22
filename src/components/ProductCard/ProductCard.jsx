@@ -13,7 +13,12 @@ function ProductCard({ product, addItem }) {
       <p>{description}</p>
       <div>{price}</div>
       <div>
-        <button type="button" onClick={() => setQuantity((prev) => prev > 1 ? prev - 1 : prev)}>-</button>
+        <button
+          type="button"
+          onClick={() => setQuantity((prev) => (prev > 1 ? prev - 1 : prev))}
+        >
+          -
+        </button>
         <input
           type="number"
           name="quantity"
@@ -21,7 +26,9 @@ function ProductCard({ product, addItem }) {
           min="1"
           onChange={(e) => setQuantity(Number(e.target.value))}
         />
-        <button type="button" onClick={() => setQuantity((prev) => prev + 1)}>+</button>
+        <button type="button" onClick={() => setQuantity((prev) => prev + 1)}>
+          +
+        </button>
       </div>
       <button type="button" onClick={() => addItem(product, quantity)}>
         Add to cart
