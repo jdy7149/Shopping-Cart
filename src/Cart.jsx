@@ -14,9 +14,18 @@ function Cart() {
   }
 
   function deleteItem(id) {
-    setCartItems((prevItems) => prevItems.filter((item) => item.product.id !== id))
+    setCartItems((prevItems) =>
+      prevItems.filter((item) => item.product.id !== id),
+    );
   }
 
+  function updateQuantity(id, quantity) {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.product.id === id ? { ...item, quantity } : item,
+      ),
+    );
+  }
 }
 
 export default Cart;
