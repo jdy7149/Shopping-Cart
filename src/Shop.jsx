@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import ProductCard from './components/ProductCard/ProductCard';
+import { useOutletContext } from 'react-router';
 
 const FAKESTOREAPI_BASE_URL = 'https://fakestoreapi.com';
 
-function Shop({ addItem }) {
+function Shop() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [, setCartItems] = useOutletContext();
 
   useEffect(() => {
     fetch(`${FAKESTOREAPI_BASE_URL}/products?limit=20`)
@@ -21,6 +24,24 @@ function Shop({ addItem }) {
       .catch((err) => setError(err))
       .finally(() => setLoading(false));
   }, []);
+
+  function addItem(product, quantity) {
+    setCartItems((prevItems) => {
+      const existingItem = prevItems.find(
+        (item) => item.product.id === product.id,
+      );
+
+      if (existingItem) {
+        return prevItems.map((item) =>
+          item.product.id === existingItem.product.id
+            ? { ...item, quantity: item.quantity + quantity }
+            : item,
+        );
+      }
+
+      return [...prevItems, { product, quantity }];
+    });
+  }
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
