@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import Cart from './Cart';
-import { MemoryRouter } from 'react-router';
+import { createMemoryRouter, RouterProvider } from 'react-router';
+import routes from './routes';
 
 const cartItems = [
   {
@@ -66,13 +66,15 @@ vi.mock(import('./components/CartItem/CartItem'), () => {
   };
 });
 
+function renderCart() {
+  const router = createMemoryRouter(routes, { initialEntries: ['/cart'] });
+
+  render(<RouterProvider router={router} />);
+}
+
 describe('Cart', () => {
   it('renders items in cart if one or more items are in the cart', () => {
-    render(
-      <MemoryRouter>
-        <Cart cartItems={cartItems} />
-      </MemoryRouter>,
-    );
+    renderCart();
     const headings = screen.getAllByRole('heading');
     const inputs = screen.getAllByRole('spinbutton');
 
@@ -87,14 +89,10 @@ describe('Cart', () => {
   });
 
   it('renders a button to browse shop if cart is empty', () => {
-    render(
-      <MemoryRouter>
-        <Cart cartItems={cartItems} />
-      </MemoryRouter>,
-    );
-    const shopButton = screen.getByRole('button', { name: /shop/i });
+    renderCart();
+    const shopLink = screen.getByRole('link', { name: /browse shop/i });
 
-    expect(shopButton).toBeInTheDocument();
-    expect(shopButton).toHaveAttribute('href', './shop');
+    expect(shopLink).toBeInTheDocument();
+    expect(shopLink).toHaveAttribute('href', '/shop');
   });
 });
