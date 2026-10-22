@@ -12,6 +12,11 @@ function Cart() {
       </div>
     );
   }
+
+  function deleteItem(id) {
+    setCartItems((prevItems) => prevItems.filter((item) => item.product.id !== id))
+  }
+
 }
 
 export default Cart;
