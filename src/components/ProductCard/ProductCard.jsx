@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiStar } from '@mdi/js';
 import styles from './ProductCard.module.css';
 

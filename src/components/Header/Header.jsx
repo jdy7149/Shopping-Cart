@@ -1,4 +1,4 @@
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiCart, mdiShopping } from '@mdi/js';
 import { Link } from 'react-router';
 import styles from './Header.module.css';

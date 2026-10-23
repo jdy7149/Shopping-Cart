@@ -1,5 +1,5 @@
 import styles from './CartItem.module.css';
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiStar, mdiTrashCan } from '@mdi/js';
 
 function CartItem({ product, quantity, deleteItem, updateQuantity }) {
