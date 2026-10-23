@@ -14,15 +14,15 @@ describe('Home component', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('renders a button to browse shop', () => {
+  it('renders a link to browse shop', () => {
     render(
       <MemoryRouter>
         <Home />
       </MemoryRouter>,
     );
-    const shopButton = screen.getByRole('button', { name: /shop/i });
+    const shopLink = screen.getByRole('link', { name: /shop/i });
 
-    expect(shopButton).toBeInTheDocument();
-    expect(shopButton).toHaveAttribute('href', '/shop');
+    expect(shopLink).toBeInTheDocument();
+    expect(shopLink).toHaveAttribute('href', '/shop');
   });
 });
