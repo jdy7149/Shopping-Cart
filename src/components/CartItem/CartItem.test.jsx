@@ -43,7 +43,7 @@ describe('CartItem', () => {
       const input = screen.getByRole('spinbutton');
 
       expect(input).toBeInTheDocument();
-      expect(input).toBeEnabled();
+      expect(input).toHaveAttribute('readonly');
       expect(input).toBeVisible();
       expect(input).toHaveAttribute('min', '1');
       expect(input).toHaveValue(3);
