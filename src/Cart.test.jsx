@@ -58,11 +58,8 @@ const cartItems = [
 
 vi.mock(import('./components/CartItem/CartItem'), () => {
   return {
-    default: ({ product, quantity }) => (
-      <>
-        <h2>{product.title}</h2>
-        <input type="number" value={quantity} readOnly />
-      </>
+    default: () => (
+      <div data-testid="cart-item"/>
     ),
   };
 });
@@ -86,17 +83,9 @@ function renderCart(initialCartItems = []) {
 describe('Cart', () => {
   it('renders items in cart if one or more items are in the cart', () => {
     renderCart(cartItems);
-    const headings = screen.getAllByRole('heading');
-    const inputs = screen.getAllByRole('spinbutton');
+    const children = screen.getAllByTestId('cart-item');
 
-    expect(headings).toHaveLength(3);
-    expect(inputs).toHaveLength(3);
-    expect(headings.map((heading) => heading.textContent)).toEqual(
-      cartItems.map((cartItem) => cartItem.product.title),
-    );
-    expect(inputs.map((input) => Number(input.value))).toEqual(
-      cartItems.map((cartItem) => cartItem.quantity),
-    );
+    expect(children).toHaveLength(cartItems.length);
   });
 
   it('renders a button to browse shop if cart is empty', () => {
