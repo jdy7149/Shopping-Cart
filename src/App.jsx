@@ -1,10 +1,9 @@
-import { Outlet } from "react-router";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import { useState } from "react";
+import { Outlet } from 'react-router';
+import Header from './components/Header/Header';
+import { useState } from 'react';
 
-function App() {
-  const [cartItems, setCartItems] = useState([]);
+function App({ initialCartItems = [] }) {
+  const [cartItems, setCartItems] = useState(initialCartItems);
 
   return (
     <>
@@ -19,9 +18,7 @@ function App() {
         </div>
       </main>
       <footer>
-        <div className="footer">
-          <Footer />
-        </div>
+        <div className="footer"></div>
       </footer>
     </>
   );
