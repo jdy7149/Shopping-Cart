@@ -25,11 +25,9 @@ describe('Product Card', () => {
       expect(screen.getByRole('img')).toBeInTheDocument();
       expect(screen.getByRole('img')).toHaveAttribute('src', product.image);
 
-      expect(
-        screen.getByRole('heading', { name: product.title }),
-      ).toBeInTheDocument();
+      expect(screen.getByText(product.title)).toBeInTheDocument();
 
-      expect(screen.getByText(product.price)).toBeInTheDocument();
+      expect(screen.getByText(`$ ${product.price}`)).toBeInTheDocument();
 
       expect(screen.getByText(product.description)).toBeInTheDocument();
 

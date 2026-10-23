@@ -24,7 +24,7 @@ function CartItem({ product, quantity, deleteItem, updateQuantity }) {
           {rating.rate}
         </div>
         <p className={styles.description}>{description}</p>
-        <div className={styles.price}>{price}</div>
+        <div className={styles.price}>$ {price}</div>
       </div>
 
       <div className={styles.actions}>

@@ -27,7 +27,7 @@ function ProductCard({ product, addItem }) {
 
       <p className={styles.description}>{description}</p>
 
-      <div className={styles.price}>{price}</div>
+      <div className={styles.price}>$ {price}</div>
 
       <div className={styles.quantityControls}>
         <button
