@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { createMemoryRouter, RouterProvider } from 'react-router';
 import routes from './routes';
+import App from './App';
 
 const cartItems = [
   {
@@ -22,7 +23,7 @@ const cartItems = [
   },
   {
     product: {
-      d: 2,
+      id: 2,
       title: 'Mens Casual Premium Slim Fit T-Shirts',
       price: 22.3,
       description:
@@ -66,20 +67,30 @@ vi.mock(import('./components/CartItem/CartItem'), () => {
   };
 });
 
-function renderCart() {
-  const router = createMemoryRouter(routes, { initialEntries: ['/cart'] });
+function renderCart(initialCartItems = []) {
+  const testRoutes = routes.map((route) => ({
+    ...route,
+    element:
+      route.path === '/' ? (
+        <App initialCartItems={initialCartItems} />
+      ) : (
+        route.element
+      ),
+  }));
+
+  const router = createMemoryRouter(testRoutes, { initialEntries: ['/cart'] });
 
   render(<RouterProvider router={router} />);
 }
 
 describe('Cart', () => {
   it('renders items in cart if one or more items are in the cart', () => {
-    renderCart();
+    renderCart(cartItems);
     const headings = screen.getAllByRole('heading');
     const inputs = screen.getAllByRole('spinbutton');
 
-    expect(headings).toBeInTheDocument();
-    expect(inputs).toBeInTheDocument();
+    expect(headings).toHaveLength(3);
+    expect(inputs).toHaveLength(3);
     expect(headings.map((heading) => heading.textContent)).toEqual(
       cartItems.map((cartItem) => cartItem.product.title),
     );
