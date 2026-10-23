@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Icon from '@mdi/react';
+import { mdiStar } from '@mdi/js';
 
 function ProductCard({ product, addItem }) {
   const [quantity, setQuantity] = useState(1);
@@ -9,7 +11,7 @@ function ProductCard({ product, addItem }) {
     <div>
       <img src={image} alt={title} />
       <h2>{title}</h2>
-      <div>{rating.rate}</div>
+      <div><Icon path={mdiStar} size={1} />{rating.rate}</div>
       <p>{description}</p>
       <div>{price}</div>
       <div>
