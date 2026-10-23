@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import { useOutletContext } from 'react-router';
+import CartItem from './components/CartItem/CartItem';
 
 function Cart() {
   const [cartItems, setCartItems] = useOutletContext();
@@ -26,6 +27,20 @@ function Cart() {
       ),
     );
   }
+
+  return (
+    <div>
+      {cartItems.map(({ product, quantity }) => (
+        <CartItem
+          key={product.id}
+          product={product}
+          quantity={quantity}
+          deleteItem={deleteItem}
+          updateQuantity={updateQuantity}
+        />
+      ))}
+    </div>
+  );
 }
 
 export default Cart;
