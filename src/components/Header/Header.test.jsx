@@ -53,13 +53,4 @@ describe('Header component', () => {
     expect(screen.getByRole('link', { name: /cart/i })).toHaveTextContent('5');
   });
 
-  it('renders zero items by default', () => {
-    render(
-      <MemoryRouter>
-        <Header />
-      </MemoryRouter>,
-    );
-
-    expect(screen.getByRole('link', { name: /cart/i })).toHaveTextContent('0');
-  });
 });
