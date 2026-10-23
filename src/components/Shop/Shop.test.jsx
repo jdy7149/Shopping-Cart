@@ -5,7 +5,7 @@ import {
 } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createMemoryRouter, RouterProvider } from 'react-router';
-import routes from './routes';
+import routes from '../../routes';
 
 const products = [
   {
@@ -51,7 +51,7 @@ const products = [
 ];
 
 // Mock child component
-vi.mock(import('./components/ProductCard/ProductCard'), () => {
+vi.mock(import('../ProductCard/ProductCard'), () => {
   return {
     default: ({ product }) => <h2>{product.title}</h2>,
   };

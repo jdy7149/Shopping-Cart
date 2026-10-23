@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { createMemoryRouter, RouterProvider } from 'react-router';
-import routes from './routes';
-import App from './App';
+import routes from '../../routes';
+import App from '../../App';
 
 const cartItems = [
   {
@@ -56,7 +56,7 @@ const cartItems = [
   },
 ];
 
-vi.mock(import('./components/CartItem/CartItem'), () => {
+vi.mock(import('../CartItem/CartItem'), () => {
   return {
     default: () => (
       <div data-testid="cart-item"/>

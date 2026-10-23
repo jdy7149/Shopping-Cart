@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import { useOutletContext } from 'react-router';
-import CartItem from './components/CartItem/CartItem';
+import CartItem from '../CartItem/CartItem';
 
 function Cart() {
   const [cartItems, setCartItems] = useOutletContext();

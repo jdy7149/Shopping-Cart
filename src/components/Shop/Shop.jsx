@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import ProductCard from './components/ProductCard/ProductCard';
 import { useOutletContext } from 'react-router';
+import ProductCard from '../ProductCard/ProductCard';
 
 const FAKESTOREAPI_BASE_URL = 'https://fakestoreapi.com';
 
