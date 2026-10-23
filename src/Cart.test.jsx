@@ -61,7 +61,7 @@ vi.mock(import('./components/CartItem/CartItem'), () => {
     default: ({ product, quantity }) => (
       <>
         <h2>{product.title}</h2>
-        <input type="number" value={quantity} />
+        <input type="number" value={quantity} readOnly />
       </>
     ),
   };
