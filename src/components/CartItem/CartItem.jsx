@@ -1,3 +1,7 @@
+import styles from './CartItem.module.css';
+import Icon from '@mdi/react';
+import { mdiStar, mdiTrashCan } from '@mdi/js';
+
 function CartItem({ product, quantity, deleteItem, updateQuantity }) {
   const { id, title, price, description, image, rating } = product;
 
@@ -8,20 +12,61 @@ function CartItem({ product, quantity, deleteItem, updateQuantity }) {
   }
 
   return (
-    <div>
-      <img src={image} alt={title} />
-      <h2>{title}</h2>
-      <div>{rating.rate}</div>
-      <p>{description}</p>
-      <div>{price}</div>
-      <div>
-        <button type="button" onClick={handleDecrement}>-</button>
-        <input type="number" name="quantity" value={quantity} min="1" readOnly onChange={(e) => updateQuantity(id, e.target.value)} />
-        <button type="button" onClick={() => updateQuantity(id, quantity + 1)}>+</button>
+    <article className={styles.item}>
+      <div className={styles.imageFrame}>
+        <img className={styles.image} src={image} alt={title} />
       </div>
-      <button type="button" onClick={() => deleteItem(id)}>Delete</button>
-    </div>
-  )
+
+      <div className={styles.details}>
+        <h2 className={styles.title}>{title}</h2>
+        <div className={styles.rating}>
+          <Icon path={mdiStar} size={1} aria-hidden="true" />
+          {rating.rate}
+        </div>
+        <p className={styles.description}>{description}</p>
+        <div className={styles.price}>{price}</div>
+      </div>
+
+      <div className={styles.actions}>
+        <div className={styles.quantityControls}>
+          <button
+            className={styles.quantityButton}
+            type="button"
+            onClick={handleDecrement}
+          >
+            -
+          </button>
+
+          <input
+            className={styles.quantityInput}
+            type="number"
+            name="quantity"
+            aria-label={`Quantity for ${title}`}
+            value={quantity}
+            min="1"
+            readOnly
+          />
+
+          <button
+            className={styles.quantityButton}
+            type="button"
+            onClick={() => updateQuantity(id, quantity + 1)}
+          >
+            +
+          </button>
+        </div>
+
+        <button
+          className={styles.deleteButton}
+          type="button"
+          aria-label={`Delete ${title}`}
+          onClick={() => deleteItem(id)}
+        >
+          <Icon path={mdiTrashCan} size={1} aria-hidden="true" />
+        </button>
+      </div>
+    </article>
+  );
 }
 
 export default CartItem;

@@ -1,25 +1,29 @@
 import Icon from '@mdi/react';
 import { mdiCart, mdiShopping } from '@mdi/js';
 import { Link } from 'react-router';
+import styles from './Header.module.css';
 
-function Header({ itemCount }) {
+function Header({ itemCount = 0 }) {
   return (
-    <>
-      <Link to='/' aria-label='logo'>
-        <h1>Logo</h1>
+    <div className={styles.header}>
+      <Link to="/" aria-label="logo" className={styles.logo}>
+        <h1 className={styles.logoText}>Logo</h1>
       </Link>
-      <h1>Title</h1>
-      <div>
-        <Link to='/shop' aria-label='shop'>
-          <Icon path={mdiShopping} size={1} />
+
+      <h1 className={styles.title}>Title</h1>
+
+      <nav className={styles.actions} aria-label="Main navigation">
+        <Link to="/shop" aria-label="shop" className={styles.iconLink}>
+          <Icon path={mdiShopping} size={1} className={styles.icon} />
         </Link>
-        <Link to='/cart' aria-label='cart'>
-          <Icon path={mdiCart} size={1} />
-          <span>({itemCount})</span>
+
+        <Link to="/cart" aria-label="cart" className={styles.iconLink}>
+          <Icon path={mdiCart} size={1} className={styles.icon} />
+          <span className={styles.count}>({itemCount})</span>
         </Link>
-      </div>
-    </>
-  )
+      </nav>
+    </div>
+  );
 }
 
 export default Header;

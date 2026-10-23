@@ -1,15 +1,17 @@
-import { Link } from 'react-router';
-import { useOutletContext } from 'react-router';
+import { Link, useOutletContext } from 'react-router';
 import CartItem from '../CartItem/CartItem';
+import styles from './Cart.module.css';
 
 function Cart() {
   const [cartItems, setCartItems] = useOutletContext();
 
   if (cartItems.length === 0) {
     return (
-      <div>
-        <p>No Items in cart.</p>
-        <Link to="/shop">Browse Shop</Link>
+      <div className={styles.emptyState}>
+        <p className={styles.emptyText}>No Items in cart.</p>
+        <Link className={styles.browseButton} to="/shop">
+          Browse Shop
+        </Link>
       </div>
     );
   }
@@ -29,17 +31,19 @@ function Cart() {
   }
 
   return (
-    <div>
-      {cartItems.map(({ product, quantity }) => (
-        <CartItem
-          key={product.id}
-          product={product}
-          quantity={quantity}
-          deleteItem={deleteItem}
-          updateQuantity={updateQuantity}
-        />
-      ))}
-    </div>
+    <section className={styles.cart} aria-label="Shopping cart">
+      <div className={styles.items}>
+        {cartItems.map(({ product, quantity }) => (
+          <CartItem
+            key={product.id}
+            product={product}
+            quantity={quantity}
+            deleteItem={deleteItem}
+            updateQuantity={updateQuantity}
+          />
+        ))}
+      </div>
+    </section>
   );
 }
 

@@ -1,0 +1,197 @@
+.item {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  padding: 22px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.imageFrame {
+  display: grid;
+  width: 140px;
+  height: 140px;
+  place-items: center;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.details {
+  min-width: 0;
+}
+
+.title {
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+  font-weight: 750;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 8px;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.rating svg {
+  flex: 0 0 auto;
+  color: var(--color-star);
+}
+
+.description {
+  display: -webkit-box;
+  overflow: hidden;
+  margin-bottom: 12px;
+  color: var(--color-muted);
+  font-size: 0.86rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.price {
+  font-size: 1.05rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.quantityControls {
+  display: grid;
+  grid-template-columns: 36px 64px 36px;
+  gap: 5px;
+}
+
+.quantityButton {
+  display: grid;
+  width: 36px;
+  height: 38px;
+  padding: 0;
+  place-items: center;
+  color: var(--color-text);
+  font-size: 1.15rem;
+  background: #f1f3f8;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.quantityButton:hover {
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.quantityInput {
+  width: 100%;
+  min-width: 0;
+  height: 38px;
+  padding: 0 4px;
+  font-weight: 600;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.deleteButton {
+  display: inline-grid;
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  min-height: 40px;
+  padding: 0;
+  place-items: center;
+  color: var(--color-danger);
+  background: #fff;
+  border: 1px solid #f0d5d5;
+  border-radius: 9px;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
+.deleteButton:hover {
+  background: #fff1f1;
+  border-color: #e7bcbc;
+}
+
+.deleteButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+.quantityButton:focus-visible,
+.quantityInput:focus-visible,
+.deleteButton:focus-visible {
+  outline: 3px solid rgb(79 70 229 / 30%);
+  outline-offset: 2px;
+}
+
+@media (max-width: 700px) {
+  .item {
+    grid-template-columns: 92px minmax(0, 1fr);
+    align-items: start;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .imageFrame {
+    width: 92px;
+    height: 110px;
+  }
+
+  .actions {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .quantityControls {
+    grid-template-columns: 36px 64px 36px;
+  }
+
+  .deleteButton {
+    min-width: 86px;
+  }
+}
+
+@media (max-width: 400px) {
+  .item {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .imageFrame {
+    width: 76px;
+    height: 90px;
+  }
+
+  .title {
+    font-size: 0.95rem;
+  }
+
+  .description {
+    font-size: 0.82rem;
+  }
+}

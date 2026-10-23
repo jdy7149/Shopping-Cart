@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router';
 import ProductCard from '../ProductCard/ProductCard';
+import styles from './Shop.module.css';
 
 const FAKESTOREAPI_BASE_URL = 'https://fakestoreapi.com';
 
@@ -43,18 +44,28 @@ function Shop() {
     });
   }
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error.message}</div>;
+  if (loading) {
+    return <div className={styles.status}>Loading...</div>;
+  }
+
+  if (error) {
+    return (
+      <div className={styles.error} role="alert">
+        {error.message}
+      </div>
+    );
+  }
 
   return (
-    <>
-      <h1>Products</h1>
-      <div>
+    <section className={styles.shop}>
+      <h1 className={styles.heading}>Products</h1>
+
+      <div className={styles.productGrid}>
         {products.map((product) => (
           <ProductCard key={product.id} product={product} addItem={addItem} />
         ))}
       </div>
-    </>
+    </section>
   );
 }
 

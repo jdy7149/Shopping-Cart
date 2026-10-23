@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import CartItem from './CartItem';
 import userEvent from '@testing-library/user-event';
+import CartItem from './CartItem';
 
 describe('CartItem', () => {
   const product = {

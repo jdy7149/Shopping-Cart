@@ -1,26 +1,29 @@
 import { Outlet } from 'react-router';
-import Header from './components/Header/Header';
 import { useState } from 'react';
+import Header from './components/Header/Header';
+import styles from './App.module.css';
 
 function App({ initialCartItems = [] }) {
   const [cartItems, setCartItems] = useState(initialCartItems);
 
+  const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
   return (
-    <>
-      <header>
-        <div className="header">
-          <Header cartItemsQty={cartItems.length} />
+    <div className={styles.app}>
+      <header className={styles.siteHeader}>
+        <div className={styles.headerInner}>
+          <Header itemCount={itemCount} />
         </div>
       </header>
-      <main>
-        <div className="content">
+
+      <main className={styles.main}>
+        <div className={styles.content}>
           <Outlet context={[cartItems, setCartItems]} />
         </div>
       </main>
-      <footer>
-        <div className="footer"></div>
-      </footer>
-    </>
+
+      <footer className={styles.footer} />
+    </div>
   );
 }
 
