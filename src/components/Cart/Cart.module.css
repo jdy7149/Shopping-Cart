@@ -2,6 +2,13 @@
   width: 100%;
 }
 
+.heading {
+  margin: 0 0 28px;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+}
+
 .items {
   display: flex;
   flex-direction: column;

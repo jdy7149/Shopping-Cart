@@ -5,17 +5,6 @@ import styles from './Cart.module.css';
 function Cart() {
   const [cartItems, setCartItems] = useOutletContext();
 
-  if (cartItems.length === 0) {
-    return (
-      <div className={styles.emptyState}>
-        <p className={styles.emptyText}>No Items in cart.</p>
-        <Link className={styles.browseButton} to="/shop">
-          Browse Shop
-        </Link>
-      </div>
-    );
-  }
-
   function deleteItem(id) {
     setCartItems((prevItems) =>
       prevItems.filter((item) => item.product.id !== id),
@@ -31,18 +20,29 @@ function Cart() {
   }
 
   return (
-    <section className={styles.cart} aria-label="Shopping cart">
-      <div className={styles.items}>
-        {cartItems.map(({ product, quantity }) => (
-          <CartItem
-            key={product.id}
-            product={product}
-            quantity={quantity}
-            deleteItem={deleteItem}
-            updateQuantity={updateQuantity}
-          />
-        ))}
-      </div>
+    <section className={styles.cart}>
+      <h1 className={styles.heading}>Shopping Cart</h1>
+
+      {cartItems.length === 0 ? (
+        <div className={styles.emptyState}>
+          <p className={styles.emptyText}>No Items in cart.</p>
+          <Link className={styles.browseButton} to="/shop">
+            Browse Shop
+          </Link>
+        </div>
+      ) : (
+        <div className={styles.items}>
+          {cartItems.map(({ product, quantity }) => (
+            <CartItem
+              key={product.id}
+              product={product}
+              quantity={quantity}
+              deleteItem={deleteItem}
+              updateQuantity={updateQuantity}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }
