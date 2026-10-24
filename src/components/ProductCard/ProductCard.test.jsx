@@ -101,6 +101,33 @@ describe('Product Card', () => {
 
       expect(input).toHaveValue(2);
     });
+
+    it('resets the quantity to 1 when the input is cleared and loses focus', async () => {
+      const user = userEvent.setup();
+
+      render(<ProductCard product={product} />);
+
+      const input = screen.getByRole('spinbutton');
+
+      await user.clear(input);
+      await user.tab();
+
+      expect(input).toHaveValue(1);
+    });
+
+    it('resets the quantity to 1 when the user enters 0 and loses focus', async () => {
+      const user = userEvent.setup();
+
+      render(<ProductCard product={product} />);
+
+      const input = screen.getByRole('spinbutton');
+
+      await user.clear(input);
+      await user.type(input, '0');
+      await user.tab();
+
+      expect(input).toHaveValue(1);
+    });
   });
 
   describe('add to cart', () => {

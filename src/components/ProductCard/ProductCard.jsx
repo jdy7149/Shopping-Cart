@@ -7,6 +7,17 @@ function ProductCard({ product, addItem }) {
   const [quantity, setQuantity] = useState(1);
   const { title, price, description, image, rating } = product;
 
+  function handleQuantityChange(e) {
+    const value = e.target.value;
+    setQuantity(value === '' ? '' : Number(value));
+  }
+
+  function handleQuantityBlur() {
+    if (quantity === '' || quantity < 1 || !Number.isInteger(quantity)) {
+      setQuantity(1);
+    }
+  }
+
   return (
     <article className={styles.card}>
       <div className={styles.imageFrame}>
@@ -33,7 +44,9 @@ function ProductCard({ product, addItem }) {
         <button
           className={styles.quantityButton}
           type="button"
-          onClick={() => setQuantity((prev) => (prev > 1 ? prev - 1 : prev))}
+          onClick={() =>
+            setQuantity((prev) => Math.max(1, (Number(prev) || 1) - 1))
+          }
         >
           -
         </button>
@@ -45,13 +58,14 @@ function ProductCard({ product, addItem }) {
           aria-label={`Quantity for ${title}`}
           value={quantity}
           min="1"
-          onChange={(event) => setQuantity(Number(event.target.value))}
+          onChange={handleQuantityChange}
+          onBlur={handleQuantityBlur}
         />
 
         <button
           className={styles.quantityButton}
           type="button"
-          onClick={() => setQuantity((prev) => prev + 1)}
+          onClick={() => setQuantity((prev) => (Number(prev) || 0) + 1)}
         >
           +
         </button>
