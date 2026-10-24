@@ -27,6 +27,10 @@ function Shop() {
   }, []);
 
   function addItem(product, quantity) {
+    if (quantity === '' || quantity < 1 || !Number.isInteger(quantity)) {
+      return;
+    }
+
     setCartItems((prevItems) => {
       const existingItem = prevItems.find(
         (item) => item.product.id === product.id,
