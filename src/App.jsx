@@ -22,7 +22,9 @@ function App({ initialCartItems = [] }) {
         </div>
       </main>
 
-      <footer className={styles.footer} />
+      <footer className={styles.footer}>
+        <div className={styles.footerInner}>Footer</div>
+      </footer>
     </div>
   );
 }
