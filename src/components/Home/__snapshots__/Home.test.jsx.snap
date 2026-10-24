@@ -2,11 +2,138 @@
 
 exports[`Home component > renders home page 1`] = `
 <div>
-  <a
-    data-discover="true"
-    href="/shop"
+  <div
+    class="_home_d6eec2"
   >
-    Browse Shop
-  </a>
+    <section
+      class="_hero_d6eec2"
+    >
+      <div
+        class="_heroContent_d6eec2"
+      >
+        <span
+          class="_eyebrow_d6eec2"
+        >
+          YOUR NEXT FAVORITE FIND
+        </span>
+        <h1
+          class="_title_d6eec2"
+        >
+          Good finds.
+          <br />
+          <span>
+            Great everyday.
+          </span>
+        </h1>
+        <p
+          class="_description_d6eec2"
+        >
+          Explore products picked for your everyday life. Find something you love and make it yours.
+        </p>
+        <a
+          class="_shopButton_d6eec2"
+          data-discover="true"
+          href="/shop"
+        >
+          Browse Shop
+          <span
+            aria-hidden="true"
+          >
+            →
+          </span>
+        </a>
+        <div
+          class="_note_d6eec2"
+        >
+          <span
+            class="_noteDot_d6eec2"
+          />
+          Discover something new today
+        </div>
+      </div>
+      <div
+        class="_heroVisual_d6eec2"
+      >
+        <div
+          class="_imageBackdrop_d6eec2"
+        />
+        <img
+          alt="Featured products from the shop"
+          class="_heroImage_d6eec2"
+          src="/your-hero-image.jpg"
+        />
+        <div
+          class="_imageLabel_d6eec2"
+        >
+          <span
+            class="_labelCaption_d6eec2"
+          >
+            THE COLLECTION
+          </span>
+          <span
+            class="_labelTitle_d6eec2"
+          >
+            Made for your everyday
+          </span>
+        </div>
+      </div>
+    </section>
+    <section
+      aria-label="Shopping highlights"
+      class="_features_d6eec2"
+    >
+      <article
+        class="_feature_d6eec2"
+      >
+        <span
+          class="_featureNumber_d6eec2"
+        >
+          01
+        </span>
+        <div>
+          <h2>
+            Explore freely
+          </h2>
+          <p>
+            Browse a range of products in one place.
+          </p>
+        </div>
+      </article>
+      <article
+        class="_feature_d6eec2"
+      >
+        <span
+          class="_featureNumber_d6eec2"
+        >
+          02
+        </span>
+        <div>
+          <h2>
+            Find your favorite
+          </h2>
+          <p>
+            Discover products that catch your eye.
+          </p>
+        </div>
+      </article>
+      <article
+        class="_feature_d6eec2"
+      >
+        <span
+          class="_featureNumber_d6eec2"
+        >
+          03
+        </span>
+        <div>
+          <h2>
+            Your cart, your way
+          </h2>
+          <p>
+            Choose your items and adjust quantities as you go.
+          </p>
+        </div>
+      </article>
+    </section>
+  </div>
 </div>
 `;
