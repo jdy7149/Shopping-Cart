@@ -35,7 +35,7 @@ function Home() {
 
           <img
             className={styles.heroImage}
-            src="/public/kapoor1952-shopping-8584891_1920.jpg"
+            src="/kapoor1952-shopping-8584891_1920.jpg"
             alt="Hero Image"
           />
 
