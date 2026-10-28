@@ -10,7 +10,7 @@ function Header({ itemCount = 0 }) {
         <h1 className={styles.logoText}>Logo</h1>
       </Link>
 
-      <h1 className={styles.title}>Title</h1>
+      <h1 className={styles.title}>The greatest store you've ever seen</h1>
 
       <nav className={styles.actions} aria-label="Main navigation">
         <Link to="/shop" aria-label="shop" className={styles.iconLink}>
